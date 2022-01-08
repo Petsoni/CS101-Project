@@ -1,17 +1,13 @@
 package classes;
 
 import enums.VrstaPonude;
-import exceptions.OfferNotAvailableException;
 import exceptions.PriceToLowException;
-import interfaces.PonudaCalculator;
+import interfaces.AgencyCalculator;
+import interfaces.CsvRow;
 
-import javax.print.attribute.standard.DateTimeAtProcessing;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.Date;
 
-public class Ponuda implements PonudaCalculator {
+public class Ponuda implements AgencyCalculator, CsvRow {
 
     private String naziv;
     private double cena;
@@ -43,7 +39,7 @@ public class Ponuda implements PonudaCalculator {
     }
 
     public void setCena(double cena) {
-        if (cena <= 0){
+        if (cena <= 10){
             throw new PriceToLowException("Cena nije validna!!!");
         }
         this.cena = cena;
@@ -82,6 +78,8 @@ public class Ponuda implements PonudaCalculator {
         return cena;
     }
 
+
+
     @Override
     public String toString() {
         return "Ponuda{" +
@@ -96,6 +94,10 @@ public class Ponuda implements PonudaCalculator {
     @Override
     public boolean proveraDatumaPonude() {
         return LocalDate.now().isBefore(datum);
+    }
 
+    @Override
+    public String toCsv() {
+        return String.format("%s,%.2f,%s,%s,%d", getNaziv(), getCena(), getLokacija(), getDatum(), getBrojNocenja());
     }
 }

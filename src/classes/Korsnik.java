@@ -1,6 +1,8 @@
 package classes;
 
-public class Korsnik extends Osoba{
+import interfaces.CsvRow;
+
+public class Korsnik extends Osoba implements CsvRow {
 
     private String username;
     private String password;
@@ -30,11 +32,19 @@ public class Korsnik extends Osoba{
         this.password = password;
     }
 
+
+
     @Override
     public String toString() {
-        return "Korsnik{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
+        return "Korsnik {" +
+                "username = '" + username + '\'' +
+                ", password = '" + password + '\'' +
                 '}';
+    }
+
+    //Opisuje kako klasa izgleda u .csv fajlu
+    @Override
+    public String toCsv() {
+        return String.format("%s,%s,%s,%s", getIme(), getPrezime(), getUsername(), getPassword());
     }
 }
