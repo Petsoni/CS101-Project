@@ -39,7 +39,7 @@ public class Ponuda implements AgencyCalculator, CsvRow {
     }
 
     public void setCena(double cena) {
-        if (cena <= 10){
+        if (cena <= 0){
             throw new PriceToLowException("Cena nije validna!!!");
         }
         this.cena = cena;
