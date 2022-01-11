@@ -1,5 +1,7 @@
 package classes;
 
+import exceptions.InvalidPasswordException;
+import exceptions.InvalidUsernameException;
 import interfaces.CsvRow;
 
 public class Korsnik extends Osoba implements CsvRow {
@@ -21,6 +23,9 @@ public class Korsnik extends Osoba implements CsvRow {
     }
 
     public void setUsername(String username) {
+        if (!username.equals("Petar23")){
+            throw new InvalidUsernameException("Username je nepostojeci");
+        }
         this.username = username;
     }
 
@@ -29,6 +34,9 @@ public class Korsnik extends Osoba implements CsvRow {
     }
 
     public void setPassword(String password) {
+        if(!password.equals("pera123")){
+            throw new InvalidPasswordException("Password je nepostojeci!");
+        }
         this.password = password;
     }
 
