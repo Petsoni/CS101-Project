@@ -1,5 +1,10 @@
 package classes;
 
+import exceptions.InvalidNameException;
+import util.NameValidation;
+
+import java.util.regex.Pattern;
+
 public abstract class Osoba {
 
     private String ime;
@@ -18,7 +23,13 @@ public abstract class Osoba {
     }
 
     public void setIme(String ime) {
-        this.ime = ime;
+
+        if (NameValidation.isWord(ime)) {
+            this.ime = ime;
+        } else {
+            throw new InvalidNameException("NENE");
+        }
+
     }
 
     public String getPrezime() {

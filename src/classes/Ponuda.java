@@ -88,7 +88,7 @@ public class Ponuda implements AgencyCalculator, CsvRow {
                 ", lokacija='" + lokacija + '\'' +
                 ", datum=" + datum +
                 ", brojNocenja=" + brojNocenja +
-                '}';
+                '}' + "\n";
     }
 
     @Override

@@ -8,6 +8,7 @@ public class Korsnik extends Osoba implements CsvRow {
 
     private String username;
     private String password;
+    //lista ponuda koje je odabrao
 
     public Korsnik() {
     }

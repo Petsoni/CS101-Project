@@ -3,7 +3,9 @@ package main;
 import classes.Filer;
 import classes.Korsnik;
 import classes.Ponuda;
+import util.NameValidation;
 
+import javax.naming.Name;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,17 +36,27 @@ public class Main {
         });
 
 //        korisnici.add(new Korsnik("Petar", "Duckovic", "Petar23", "pera123"));
-        System.out.println("Unesite vase ime, prezime, username i password: ");
-        korisnici.add(new Korsnik(sc.next(), sc.next(), sc.next(), sc.next()));
 
-        System.out.println("Ponude koje se daju: ");
-        ponude.add(new Ponuda("DubaiHaos", 100000f, "Dubai" ,LocalDate.now(), 7));
-        ponude.add(new Ponuda("IstanbulHaos", 60000f, "Istanbul" ,LocalDate.now(), 5));
+        //Dodavanje username i passworda jedno ispod drugog
+//        System.out.println("Unesite vase ime, prezime, username i password: ");
+//        korisnici.add(new Korsnik(sc.next(), sc.next(), sc.next(), sc.next()));
+//
+//        System.out.println("Ponude koje se daju: ");
+//        ponude.add(new Ponuda("DubaiHaos", 100000f, "Dubai" ,LocalDate.now(), 7));
+//        ponude.add(new Ponuda("IstanbulHaos", 60000f, "Istanbul" ,LocalDate.now(), 5));
+//
+//        //Dodati citanje iz fajla za ponude!!!
+//        System.out.println(ponude);
+////        System.out.println(korisnici);
+//
+//        ponudeFiler.write(ponude);
+//        korisniciFiler.write(korisnici);
+//
+        Korsnik k1 = new Korsnik();
+        k1.setIme(sc.next());
+        System.out.println(k1.getIme());
 
-        System.out.println(ponude);
-//        System.out.println(korisnici);
 
-        ponudeFiler.write(ponude);
-        korisniciFiler.write(korisnici);
+
     }
 }
