@@ -4,19 +4,23 @@ import exceptions.InvalidPasswordException;
 import exceptions.InvalidUsernameException;
 import interfaces.CsvRow;
 
+import java.util.List;
+
 public class Korsnik extends Osoba implements CsvRow {
 
     private String username;
     private String password;
     //lista ponuda koje je odabrao
+    private List<Ponuda> listaPonuda;
 
     public Korsnik() {
     }
 
-    public Korsnik(String ime, String prezime, String username, String password) {
+    public Korsnik(String ime, String prezime, String username, String password, List<Ponuda> listaPonuda) {
         super(ime, prezime);
         this.username = username;
         this.password = password;
+        this.listaPonuda = listaPonuda;
     }
 
     public String getUsername() {

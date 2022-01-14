@@ -19,13 +19,6 @@ public class Main {
         List<Korsnik> korisnici = new ArrayList<>();
         List<Ponuda> ponude = new ArrayList<>();
 
-        Filer korisniciFiler = new Filer("korisnici.csv");
-        korisniciFiler.read((params) -> {
-//            System.out.println(Arrays.toString(params));
-            Korsnik korsnik1 = new Korsnik(params[0], params[1], params[2], params[3]);
-            korisnici.add(korsnik1);
-        });
-
         Filer ponudeFiler = new Filer("ponude.csv");
         ponudeFiler.read((params) -> {
             System.out.println(Arrays.toString(params));
@@ -34,6 +27,15 @@ public class Main {
             int brojNocenja = Integer.parseInt(params[4]);
             ponude.add(new Ponuda(params[0], cena, params[2], datum, brojNocenja));
         });
+
+        Filer korisniciFiler = new Filer("korisnici.csv");
+        korisniciFiler.read((params) -> {
+//            System.out.println(Arrays.toString(params));
+            Korsnik korsnik1 = new Korsnik(params[0], params[1], params[2], params[3], ponude);
+            korisnici.add(korsnik1);
+        });
+
+
 
 //        korisnici.add(new Korsnik("Petar", "Duckovic", "Petar23", "pera123"));
 
