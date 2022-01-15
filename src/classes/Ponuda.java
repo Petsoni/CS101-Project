@@ -14,16 +14,20 @@ public class Ponuda implements AgencyCalculator, CsvRow {
     private String lokacija;
     private LocalDate datum;
     private int brojNocenja;
+    private String imeAgencije;
+    private VrstaPonude vrstaPonude;
 
     public Ponuda() {
     }
 
-    public Ponuda(String naziv, double cena, String lokacija, LocalDate datum, int brojNocenja) {
+    public Ponuda(String naziv, double cena, String lokacija, LocalDate datum, int brojNocenja, String imeAgencije, VrstaPonude vrstaPonude) {
         this.naziv = naziv;
         setCena(cena);
         this.lokacija = lokacija;
         this.datum = datum;
         this.brojNocenja = brojNocenja;
+        this.imeAgencije = imeAgencije;
+        this.vrstaPonude = vrstaPonude;
     }
 
     public String getNaziv() {
@@ -39,7 +43,7 @@ public class Ponuda implements AgencyCalculator, CsvRow {
     }
 
     public void setCena(double cena) {
-        if (cena <= 0){
+        if (cena <= 0) {
             throw new PriceToLowException("Cena nije validna!!!");
         }
         this.cena = cena;
@@ -57,7 +61,7 @@ public class Ponuda implements AgencyCalculator, CsvRow {
         return datum;
     }
 
-    public void setLocalDate(LocalDate datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 
@@ -69,16 +73,30 @@ public class Ponuda implements AgencyCalculator, CsvRow {
         this.brojNocenja = brojNocenja;
     }
 
-    public double racunanjeCenePonude (VrstaPonude vrstaPonude){
-        if (vrstaPonude == VrstaPonude.FIRST_MINUTE){
+    public String getImeAgencije() {
+        return imeAgencije;
+    }
+
+    public void setImeAgencije(String imeAgencije) {
+        this.imeAgencije = imeAgencije;
+    }
+
+    public VrstaPonude getVrstaPonude() {
+        return vrstaPonude;
+    }
+
+    public void setVrstaPonude(VrstaPonude vrstaPonude) {
+        this.vrstaPonude = vrstaPonude;
+    }
+
+    public double racunanjeCenePonude(VrstaPonude vrstaPonude) {
+        if (vrstaPonude == VrstaPonude.FIRST_MINUTE) {
             setCena(this.cena * 0.8);
-        }else if(vrstaPonude == VrstaPonude.LAST_MINUTE){
+        } else if (vrstaPonude == VrstaPonude.LAST_MINUTE) {
             setCena(this.cena * 0.5);
         }
         return cena;
     }
-
-
 
     @Override
     public String toString() {
@@ -88,7 +106,8 @@ public class Ponuda implements AgencyCalculator, CsvRow {
                 ", lokacija='" + lokacija + '\'' +
                 ", datum=" + datum +
                 ", brojNocenja=" + brojNocenja +
-                '}' + "\n";
+                ", imeAgencije='" + imeAgencije + '\'' +
+                '}';
     }
 
     @Override
@@ -98,6 +117,6 @@ public class Ponuda implements AgencyCalculator, CsvRow {
 
     @Override
     public String toCsv() {
-        return String.format("%s,%.2f,%s,%s,%d", getNaziv(), getCena(), getLokacija(), getDatum(), getBrojNocenja());
+        return String.format("%s,%.2f,%s,%s,%d,%s", getNaziv(), getCena(), getLokacija(), getDatum(), getBrojNocenja(), getImeAgencije());
     }
 }

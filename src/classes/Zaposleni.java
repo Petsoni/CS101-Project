@@ -1,8 +1,9 @@
 package classes;
 
 import exceptions.PaycheckException;
+import interfaces.CsvRow;
 
-public class Zaposleni extends Osoba {
+public class Zaposleni extends Osoba implements CsvRow {
 
     private double plata;
     private boolean naBolovanju;
@@ -66,5 +67,10 @@ public class Zaposleni extends Osoba {
                 ", naBolovanju=" + naBolovanju +
                 ", brojSlobodnihDana=" + brojSlobodnihDana +
                 '}';
+    }
+
+    @Override
+    public String toCsv() {
+        return String.format("%s,%s,%s", getIme(), getPrezime(), naBolovanju);
     }
 }

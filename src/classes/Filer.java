@@ -23,7 +23,7 @@ public class Filer {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (!line.equals("")) {
-                    var a = line.split(",");
+                    var a = line.split("/");
                     System.out.println(Arrays.toString(a));
                     consumer.accept(a);
                 }
@@ -34,7 +34,6 @@ public class Filer {
     }
 
     //<? extends CsvRow> lista bilo kojih klasa koje implementiraju intefejs CsvRow
-
     public void write(List<? extends CsvRow> data) {
         try {
             FileWriter fis = new FileWriter(Paths.get(fileName).toFile());
@@ -46,6 +45,5 @@ public class Filer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
     }
 }

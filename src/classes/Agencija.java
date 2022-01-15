@@ -1,11 +1,13 @@
 package classes;
 
+import interfaces.CsvRow;
+
 import java.util.List;
 
 /*Korisnik se uloguje, bira agenciju, izlistava sve ponude, filtriranje po lokaciji ili po ceni (manje vece od prosledjene),
  odabir ponude*/
 
-public class Agencija {
+public class Agencija implements CsvRow {
 
     private String naziv;
     private String adresa;
@@ -52,5 +54,10 @@ public class Agencija {
                 ", adresa='" + adresa + '\'' +
                 ", listaPonuda=" + listaPonuda +
                 '}';
+    }
+
+    @Override
+    public String toCsv() {
+        return String.format("%s,%s,%s", getNaziv(), getAdresa(), getListaPonuda());
     }
 }
