@@ -1,14 +1,14 @@
 package classes;
 
-import exceptions.InvalidPasswordException;
 import exceptions.InvalidUsernameException;
 import interfaces.CsvRow;
+
+import java.util.List;
 
 public class Korsnik extends Osoba implements CsvRow {
 
     private String username;
     private String password;
-    //lista ponuda koje je odabrao
 
     public Korsnik() {
     }
@@ -24,9 +24,6 @@ public class Korsnik extends Osoba implements CsvRow {
     }
 
     public void setUsername(String username) {
-        if (!username.equals("Petar23")) {
-            throw new InvalidUsernameException("Username je nepostojeci");
-        }
         this.username = username;
     }
 
@@ -35,11 +32,19 @@ public class Korsnik extends Osoba implements CsvRow {
     }
 
     public void setPassword(String password) {
-        if (!password.equals("pera123")) {
-            throw new InvalidPasswordException("Password je nepostojeci!");
-        }
         this.password = password;
     }
+
+
+    public static Korsnik findUser(List<Korsnik> korsniks, String username, String password) {
+        for (Korsnik korsnik : korsniks) {
+            if (korsnik.getUsername().equals(username) && korsnik.getPassword().equals(password)) {
+                return korsnik;
+            }
+        }
+        throw new InvalidUsernameException("Korisnik ne postoji: " + username);
+    }
+
 
     @Override
     public String toString() {

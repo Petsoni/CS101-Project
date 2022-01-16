@@ -5,72 +5,34 @@ import interfaces.CsvRow;
 
 public class Zaposleni extends Osoba implements CsvRow {
 
-    private double plata;
-    private boolean naBolovanju;
-    private int brojSlobodnihDana;
+    private String agencijaKojojPripada;
 
-    private Zaposleni() {
+
+    public Zaposleni() {
     }
 
-    public Zaposleni(String ime, String prezime, double plata, boolean naBolovanju, int brojSlobodnihDana) {
+    public Zaposleni(String ime, String prezime, String agencijaKojojPripada) {
         super(ime, prezime);
-        this.plata = 75000;
-        this.naBolovanju = naBolovanju;
-        this.brojSlobodnihDana = brojSlobodnihDana;
+        this.agencijaKojojPripada = agencijaKojojPripada;
     }
 
-    public double getPlata() {
-        return plata;
+    public String getAgencijaKojojPripada() {
+        return agencijaKojojPripada;
     }
 
-    public void setPlata(double plata) {
-        if (plata <= 0) {
-            throw new PaycheckException("Plata nije validna!");
-        }
-        this.plata = plata;
-    }
-
-    public boolean isNaBolovanju() {
-        return naBolovanju;
-    }
-
-    public void setNaBolovanju(boolean naBolovanju) {
-        this.naBolovanju = naBolovanju;
-    }
-
-    public int getBrojSlobodnihDana() {
-        return brojSlobodnihDana;
-    }
-
-    public void setBrojSlobodnihDana(int brojSlobodnihDana) {
-        if (brojSlobodnihDana > 20) {
-            this.plata *= 0.5;
-        } else if (brojSlobodnihDana >= 10) {
-            this.plata *= 0.75;
-        } else if (brojSlobodnihDana > 5) {
-            this.plata *= 0.9;
-        }
-        this.brojSlobodnihDana = brojSlobodnihDana;
-    }
-
-    public double visinaPlateNaBolovanju() {
-        if (this.naBolovanju) {
-            this.plata *= 0.75;
-        }
-        return plata;
+    public void setAgencijaKojojPripada(String agencijaKojojPripada) {
+        this.agencijaKojojPripada = agencijaKojojPripada;
     }
 
     @Override
     public String toString() {
         return "Zaposleni{" +
-                "plata=" + plata +
-                ", naBolovanju=" + naBolovanju +
-                ", brojSlobodnihDana=" + brojSlobodnihDana +
+                "agencijaKojojPripada='" + agencijaKojojPripada + '\'' +
                 '}';
     }
 
     @Override
     public String toCsv() {
-        return String.format("%s,%s,%s", getIme(), getPrezime(), naBolovanju);
+        return String.format("%s,%s,%s", getIme(), getPrezime(), getAgencijaKojojPripada());
     }
 }

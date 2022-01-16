@@ -2,6 +2,7 @@ package classes;
 
 import interfaces.CsvRow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*Korisnik se uloguje, bira agenciju, izlistava sve ponude, filtriranje po lokaciji ili po ceni (manje vece od prosledjene),
@@ -11,16 +12,15 @@ public class Agencija implements CsvRow {
 
     private String naziv;
     private String adresa;
-    private List<Zaposleni> listaZaposlenih;
-    private List<Ponuda> listaPonuda;
+    private List<Zaposleni> listaZaposlenih = new ArrayList<>();
+    private List<Ponuda> listaPonuda = new ArrayList<>();
 
     public Agencija() {
     }
 
-    public Agencija(String naziv, String adresa, List<Ponuda> listaPonuda) {
+    public Agencija(String naziv, String adresa) {
         this.naziv = naziv;
         this.adresa = adresa;
-        this.listaPonuda = listaPonuda;
     }
 
     public String getNaziv() {
@@ -47,17 +47,36 @@ public class Agencija implements CsvRow {
         this.listaPonuda = listaPonuda;
     }
 
+    public List<Zaposleni> getListaZaposlenih() {
+        return listaZaposlenih;
+    }
+
+    public void setListaZaposlenih(List<Zaposleni> listaZaposlenih) {
+        this.listaZaposlenih = listaZaposlenih;
+    }
+
+    public static Agencija findAgencyByName(List<Agencija> agencijas, String imeAgencije) {
+        for (Agencija agencija : agencijas) {
+            if (agencija.getNaziv().equals(imeAgencije)) {
+                return agencija;
+            }
+        }
+        return null;
+    }
+
+
     @Override
     public String toString() {
         return "Agencija{" +
                 "naziv='" + naziv + '\'' +
                 ", adresa='" + adresa + '\'' +
+                ", listaZaposlenih=" + listaZaposlenih +
                 ", listaPonuda=" + listaPonuda +
                 '}';
     }
 
     @Override
     public String toCsv() {
-        return String.format("%s,%s,%s", getNaziv(), getAdresa(), getListaPonuda());
+        return String.format("%s,%s", getNaziv(), getAdresa());
     }
 }

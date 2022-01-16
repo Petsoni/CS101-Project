@@ -6,6 +6,7 @@ import interfaces.AgencyCalculator;
 import interfaces.CsvRow;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Ponuda implements AgencyCalculator, CsvRow {
 
@@ -96,6 +97,15 @@ public class Ponuda implements AgencyCalculator, CsvRow {
             setCena(this.cena * 0.5);
         }
         return cena;
+    }
+
+    public static Ponuda findPonudaByName(List<Ponuda> ponudas, String imePonude) {
+        for (Ponuda ponuda : ponudas){
+            if (ponuda.getNaziv().equals(imePonude)){
+                return ponuda;
+            }
+        }
+        return null;
     }
 
     @Override

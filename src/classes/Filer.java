@@ -23,8 +23,7 @@ public class Filer {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (!line.equals("")) {
-                    var a = line.split("/");
-                    System.out.println(Arrays.toString(a));
+                    var a = line.split(",");
                     consumer.accept(a);
                 }
             }

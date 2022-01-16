@@ -2,15 +2,20 @@ package main;
 
 import classes.*;
 import enums.VrstaPonude;
+import exceptions.InvalidUsernameException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
+import java.util.Scanner;
+
+import static classes.Agencija.findAgencyByName;
+import static classes.Korsnik.findUser;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
         List<Korsnik> korisnici = new ArrayList<>();
         List<Ponuda> ponude = new ArrayList<>();
@@ -37,8 +42,31 @@ public class Main {
         });
 
         agencijaFiler.read((params) -> {
-
+            System.out.println(Arrays.toString(params));
+            Agencija agencija1 = new Agencija(params[0], params[1]);
+            agencije.add(agencija1);
         });
+
+        zaposleniFiler.read((params) -> {
+            System.out.println(Arrays.toString(params));
+            Zaposleni zaposleni1 = new Zaposleni(params[0], params[1], params[2]);
+            zaposleni.add(zaposleni1);
+            Agencija agencija = findAgencyByName(agencije, zaposleni1.getAgencijaKojojPripada());
+            if (agencija != null) {
+                agencija.getListaZaposlenih().add(zaposleni1);
+            }
+        });
+
+        System.out.print("Unesite korisnicko ime: ");
+        String username = sc.next();
+
+        System.out.print("Unesite lozinku: ");
+        String password = sc.next();
+
+        Korsnik korsnik = findUser(korisnici, username, password);
+
+
+        System.out.println(agencije);
 
 //        korisnici.add(new Korsnik("Petar", "Duckovic", "Petar23", "pera123"));
 
