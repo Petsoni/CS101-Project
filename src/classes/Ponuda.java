@@ -6,6 +6,7 @@ import interfaces.AgencyCalculator;
 import interfaces.CsvRow;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ponuda implements AgencyCalculator, CsvRow {
@@ -108,16 +109,24 @@ public class Ponuda implements AgencyCalculator, CsvRow {
         return null;
     }
 
+    public static List<Ponuda> findPonudaByPricepoint(List<Ponuda> ponudas, double maxFilter){
+        List<Ponuda> ponudaList = new ArrayList<>();
+        for (Ponuda ponuda : ponudas){
+            if (ponuda.getCena() <= maxFilter){
+                ponudaList.add(ponuda);
+            }
+        }
+        return ponudaList;
+    }
+
     @Override
     public String toString() {
-        return "Ponuda{" +
-                "naziv='" + naziv + '\'' +
-                ", cena=" + cena +
-                ", lokacija='" + lokacija + '\'' +
-                ", datum=" + datum +
-                ", brojNocenja=" + brojNocenja +
-                ", imeAgencije='" + imeAgencije + '\'' +
-                '}';
+        return naziv + " " +
+                ", cena = " + cena +
+                " RSD, lokacija = " + lokacija + " " + datum +
+                ", brojNocenja = " + brojNocenja +
+                ", agencije sa ovom ponudom = '" + imeAgencije + " " + ", vrsta ponude = " +
+                vrstaPonude;
     }
 
     @Override
