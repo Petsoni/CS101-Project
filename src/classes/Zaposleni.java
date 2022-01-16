@@ -1,6 +1,5 @@
 package classes;
 
-import exceptions.PaycheckException;
 import interfaces.CsvRow;
 
 public class Zaposleni extends Osoba implements CsvRow {

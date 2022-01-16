@@ -6,12 +6,16 @@ import enums.VrstaPonude;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static classes.Agencija.findAgencyByName;
 import static classes.Korsnik.findUser;
 
 public class Main {
+
+    //napraviti metodu za vracanje zaposlenih koji pripadaju odabranoj ponudi po agenciji
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -68,43 +72,34 @@ public class Main {
         //Korisnik se pretrazuje po username-u i password-u u file-u korisnici.csv
         Korsnik korsnik = findUser(korisnici, username, password);
 
+        //Korisnik bira maksimalnu cenu ponude koju trazi
         System.out.print("Unesite maksimalnu cenu koju zelite: ");
         double maxCena = sc.nextDouble();
 
 
-        List<Ponuda> isfiltriranePonude = Ponuda.findPonudaByPricepoint(ponude, maxCena);
+        List<Ponuda> filtriranePonude = Ponuda.findPonudaByPricepoint(ponude, maxCena);
 
-        for (int i = 0; i < isfiltriranePonude.size(); i++) {
-            Ponuda p = isfiltriranePonude.get(i);
+        for (int i = 0; i < filtriranePonude.size(); i++) {
+            Ponuda p = filtriranePonude.get(i);
             System.out.printf("%d. %s %.2f %s %s %d %s \n", i + 1, p.getNaziv(), p.getCena(), p.getLokacija(),
                     p.getDatum(), p.getBrojNocenja(), p.getImeAgencije());
-
         }
 
+        //Korisniku se izlistavaju sve ponude koje odgovaraju njegovoj unetoj ceni
         System.out.print("Unesite redni broj ponude koju zelite: ");
         int izbor = sc.nextInt();
-        Ponuda izabranaPonuda = isfiltriranePonude.get(izbor - 1);
+        Ponuda izabranaPonuda = filtriranePonude.get(izbor - 1);
         System.out.println();
 
         System.out.println("Ponuda koju ste izabrali: " + "\n" + izabranaPonuda.toString());
+
+
+
+
+
+
 //        System.out.println(agencije);
-
 //        korisnici.add(new Korsnik("Petar", "Duckovic", "Petar23", "pera123"));
-
-        //Dodavanje username i passworda jedno ispod drugog
-//        System.out.println("Unesite vase ime, prezime, username i password: ");
-//        korisnici.add(new Korsnik(sc.next(), sc.next(), sc.next(), sc.next()));
-//
-//        System.out.println("Ponude koje se daju: ");
-//        ponude.add(new Ponuda("DubaiHaos", 100000f, "Dubai" ,LocalDate.now(), 7));
-//        ponude.add(new Ponuda("IstanbulHaos", 60000f, "Istanbul" ,LocalDate.now(), 5));
-//
-//      //Dodati citanje iz fajla za ponude!!!
-//        System.out.println(ponude);
-//        System.out.println(korisnici);
-//
-//        ponudeFiler.write(ponude);
-//        korisniciFiler.write(korisnici);
 
 
     }
