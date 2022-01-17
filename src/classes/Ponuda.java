@@ -126,6 +126,8 @@ public class Ponuda implements AgencyCalculator, CsvRow {
         for (Ponuda ponuda : ponudas){
             if (ponuda.getCena() <= maxFilter){
                 ponudaList.add(ponuda);
+            }else if (maxFilter < 100){
+                throw new PriceToLowException("Ne postoji ponuda ispod navede cene!");
             }
         }
         return ponudaList;
@@ -148,7 +150,7 @@ public class Ponuda implements AgencyCalculator, CsvRow {
 
     @Override
     public String toCsv() {
-        return String.format("%s,%.2f,%s,%s,%d,%s,%s", getNaziv(), getCena(), getLokacija(), getDatum(),
-                getBrojNocenja(), getImeAgencije(), getVrstaPrevoza());
+        return String.format("%s,%.0f,%s,%s,%d,%s,%s,%s", getNaziv(), getCena(), getLokacija(), getDatum(),
+                getBrojNocenja(), getImeAgencije(), getVrstaPonude(), getVrstaPrevoza());
     }
 }

@@ -19,6 +19,7 @@ public class Main {
 
         List<Korsnik> korisnici = new ArrayList<>();
         List<Ponuda> ponude = new ArrayList<>();
+        List<Ponuda> izabranePonude = new ArrayList<>();
         List<Agencija> agencije = new ArrayList<>();
         List<Zaposleni> zaposleni = new ArrayList<>();
 
@@ -36,6 +37,15 @@ public class Main {
             VrstaPonude vrstaPonude = VrstaPonude.valueOf(params[6]);
             VrstaPrevoza vrstaPrevoza = VrstaPrevoza.valueOf(params[7]);
             ponude.add(new Ponuda(params[0], cena, params[2], datum, brojNocenja, params[5], vrstaPonude, vrstaPrevoza));
+        });
+
+        zabelezenoFiler.read((params) -> {
+            double cena = Double.parseDouble(params[1]);
+            LocalDate datum = LocalDate.parse(params[3]);
+            int brojNocenja = Integer.parseInt(params[4]);
+            VrstaPonude vrstaPonude = VrstaPonude.valueOf(params[6]);
+            VrstaPrevoza vrstaPrevoza = VrstaPrevoza.valueOf(params[7]);
+            izabranePonude.add(new Ponuda(params[0], cena, params[2], datum, brojNocenja, params[5], vrstaPonude, vrstaPrevoza));
         });
 
         agencijaFiler.read((params) -> {
@@ -76,13 +86,13 @@ public class Main {
         System.out.print("Unesite maksimalnu cenu koju zelite: ");
         double maxCena = sc.nextDouble();
 
-
+        System.out.println();
         List<Ponuda> filtriranePonude = Ponuda.findPonudaByPricepoint(ponude, maxCena);
 
-        System.out.println();
+
         for (int i = 0; i < filtriranePonude.size(); i++) {
             Ponuda p = filtriranePonude.get(i);
-            System.out.printf("%d. %s %.2f %s %s %d %s %s \n", i + 1, p.getNaziv(), p.getCena(), p.getLokacija(),
+            System.out.printf("%d. | %s | %.0f | %s | %s | %d | %s | %s \n", i + 1, p.getNaziv(), p.getCena(), p.getLokacija(),
                     p.getDatum(), p.getBrojNocenja(), p.getImeAgencije(), p.getVrstaPrevoza());
 
         }
@@ -95,6 +105,7 @@ public class Main {
 
         //Korisniku se pojavljuje ponuda koju je izabrao i izracunava mu se cena na osnovu vrste ponude
         System.out.println("Ponuda koju ste izabrali: " + "\n" + izabranaPonuda.toString());
+        System.out.println();
         System.out.println("Cena vase izabrane ponude je: " + izabranaPonuda.racunanjeCenePonude(izabranaPonuda.getVrstaPonude()) +
                 " RSD, jer je vrsta ponude " + izabranaPonuda.getVrstaPonude());
         System.out.println();
@@ -114,19 +125,14 @@ public class Main {
         String odgovor = sc.next().toLowerCase(Locale.ROOT);
         System.out.println();
 
-        //Na osnovu odgovora se ponuda belezi u zabelezeno.csv falju
+        //Na osnovu odgovora se ponuda belezi u zabelezeno.csv fajlu
         if (odgovor.equals("ne")){
             System.out.println("Rezervacija otkazana!");
         }else if (odgovor.equals("da")){
-            zabelezenoFiler.write(Collections.singletonList(izabranaPonuda));
+            izabranePonude.add(izabranaPonuda);
+            zabelezenoFiler.write(izabranePonude);
             System.out.println("Uspesno ste rezervisali ponudu!");
         }
-
         //Zavrsetak programa
-
-//        System.out.println(agencije);
-//        korisnici.add(new Korsnik("Petar", "Duckovic", "Petar23", "pera123"));
-
-
     }
 }
