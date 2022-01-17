@@ -2,6 +2,9 @@ package classes;
 
 import interfaces.CsvRow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Zaposleni extends Osoba implements CsvRow {
 
     private String agencijaKojojPripada;
@@ -23,11 +26,19 @@ public class Zaposleni extends Osoba implements CsvRow {
         this.agencijaKojojPripada = agencijaKojojPripada;
     }
 
+    public static List<Zaposleni> findZaposleniByAgency(List<Zaposleni> zaposleni, Ponuda ponuda) {
+        List<Zaposleni> zaposleniList = new ArrayList<>();
+        for (Zaposleni zaposleni1 : zaposleni) {
+            if (zaposleni1.getAgencijaKojojPripada().equals(ponuda.getImeAgencije())) {
+                zaposleniList.add(zaposleni1);
+            }
+        }
+        return zaposleniList;
+    }
+
     @Override
     public String toString() {
-        return "Zaposleni{" +
-                "agencijaKojojPripada='" + agencijaKojojPripada + '\'' +
-                '}';
+        return "Zaposleni{" + "agencijaKojojPripada='" + agencijaKojojPripada + '\'' + '}';
     }
 
     @Override

@@ -1,6 +1,7 @@
 package classes;
 
 import enums.VrstaPonude;
+import enums.VrstaPrevoza;
 import exceptions.PriceToLowException;
 import interfaces.AgencyCalculator;
 import interfaces.CsvRow;
@@ -18,11 +19,13 @@ public class Ponuda implements AgencyCalculator, CsvRow {
     private int brojNocenja;
     private String imeAgencije;
     private VrstaPonude vrstaPonude;
+    private VrstaPrevoza vrstaPrevoza;
 
     public Ponuda() {
     }
 
-    public Ponuda(String naziv, double cena, String lokacija, LocalDate datum, int brojNocenja, String imeAgencije, VrstaPonude vrstaPonude) {
+    public Ponuda(String naziv, double cena, String lokacija, LocalDate datum, int brojNocenja, String imeAgencije,
+                  VrstaPonude vrstaPonude, VrstaPrevoza vrstaPrevoza) {
         this.naziv = naziv;
         setCena(cena);
         this.lokacija = lokacija;
@@ -30,6 +33,7 @@ public class Ponuda implements AgencyCalculator, CsvRow {
         this.brojNocenja = brojNocenja;
         this.imeAgencije = imeAgencije;
         this.vrstaPonude = vrstaPonude;
+        this.vrstaPrevoza = vrstaPrevoza;
     }
 
     public String getNaziv() {
@@ -91,6 +95,14 @@ public class Ponuda implements AgencyCalculator, CsvRow {
         this.vrstaPonude = vrstaPonude;
     }
 
+    public VrstaPrevoza getVrstaPrevoza() {
+        return vrstaPrevoza;
+    }
+
+    public void setVrstaPrevoza(VrstaPrevoza vrstaPrevoza) {
+        this.vrstaPrevoza = vrstaPrevoza;
+    }
+
     public double racunanjeCenePonude(VrstaPonude vrstaPonude) {
         if (vrstaPonude == VrstaPonude.FIRST_MINUTE) {
             setCena(this.cena * 0.8);
@@ -123,9 +135,9 @@ public class Ponuda implements AgencyCalculator, CsvRow {
     public String toString() {
         return naziv + " " +
                 ", cena = " + cena +
-                " RSD, lokacija = " + lokacija + " " + datum +
-                ", brojNocenja = " + brojNocenja +
-                ", agencije sa ovom ponudom = '" + imeAgencije + " " + ", vrsta ponude = " +
+                " RSD, lokacija = " + lokacija + ", datum: " + datum +
+                ", brojNocenja: " + brojNocenja +
+                ", agencije sa ovom ponudom = " + imeAgencije + " " + ", vrsta ponude = " +
                 vrstaPonude;
     }
 
@@ -136,6 +148,7 @@ public class Ponuda implements AgencyCalculator, CsvRow {
 
     @Override
     public String toCsv() {
-        return String.format("%s,%.2f,%s,%s,%d,%s", getNaziv(), getCena(), getLokacija(), getDatum(), getBrojNocenja(), getImeAgencije());
+        return String.format("%s,%.2f,%s,%s,%d,%s,%s", getNaziv(), getCena(), getLokacija(), getDatum(),
+                getBrojNocenja(), getImeAgencije(), getVrstaPrevoza());
     }
 }

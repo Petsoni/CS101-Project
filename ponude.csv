@@ -1,5 +1,5 @@
-IstanbulSpring,7500,Istanbul,2022-03-03,5,Helona,STANDARD
-KopaonikWinter,10000,Kopaonik,2022-12-15,4,Nitravel,FIRST_MINUTE
-Kusadasi,9600,Kusadasi,2022-05-15,6,Helona,STANDARD
-Tirana,8500,Tirana,2022-06-15,5,Helona,LAST_MINUTE
-MonteCarlo,15000,MonteCarlo,2022-07-05,4,Rapsody,FIRST_MINUTE
+IstanbulSpring,7500,Istanbul,2022-03-03,5,Helona,STANDARD,AVION
+KopaonikWinter,10000,Kopaonik,2022-12-15,4,Nitravel,FIRST_MINUTE,AUTOBUS
+Kusadasi,9600,Kusadasi,2022-05-15,6,Helona,STANDARD,BROD
+Tirana,8500,Tirana,2022-06-15,5,Helona,LAST_MINUTE,AUTOBUS
+MonteCarlo,15000,MonteCarlo,2022-07-05,4,Rapsody,FIRST_MINUTE,AUTOBUS
