@@ -5,9 +5,6 @@ import interfaces.CsvRow;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Korisnik se uloguje, bira agenciju, izlistava sve ponude, filtriranje po lokaciji ili po ceni (manje vece od prosledjene),
- odabir ponude*/
-
 public class Agencija implements CsvRow {
 
     private String naziv;

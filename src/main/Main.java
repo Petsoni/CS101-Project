@@ -67,6 +67,8 @@ public class Main {
             korisnici.add(korsnik1);
         });
 
+        //---------------------------------------------------------------------------------//
+
         //Korisnik unosi username i password kako bi se ulogovao i mogao da pregleda ponude
         System.out.print("Unesite korisnicko ime: ");
         String username = sc.next();

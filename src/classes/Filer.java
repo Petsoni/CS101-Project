@@ -4,7 +4,6 @@ import interfaces.CsvRow;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -16,6 +15,7 @@ public class Filer {
         this.fileName = fileName;
     }
 
+    //Consumer uzima jednu vrednost i izvrsi neku operaciju na tu vrednost
     public void read(Consumer<String[]> consumer) {
         try {
             FileReader fis = new FileReader(Paths.get(fileName).toFile());
@@ -23,7 +23,7 @@ public class Filer {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (!line.equals("")) {
-                    var a = line.split(",");
+                    var a = line.split(","); //Uzima niz stringova i splituje ih po ","
                     consumer.accept(a);
                 }
             }

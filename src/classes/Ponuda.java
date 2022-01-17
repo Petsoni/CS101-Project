@@ -112,21 +112,12 @@ public class Ponuda implements AgencyCalculator, CsvRow {
         return cena;
     }
 
-    public static Ponuda findPonudaByName(List<Ponuda> ponudas, String imePonude) {
-        for (Ponuda ponuda : ponudas){
-            if (ponuda.getNaziv().equals(imePonude)){
-                return ponuda;
-            }
-        }
-        return null;
-    }
-
-    public static List<Ponuda> findPonudaByPricepoint(List<Ponuda> ponudas, double maxFilter){
+    public static List<Ponuda> findPonudaByPricepoint(List<Ponuda> ponudas, double maxFilter) {
         List<Ponuda> ponudaList = new ArrayList<>();
-        for (Ponuda ponuda : ponudas){
-            if (ponuda.getCena() <= maxFilter){
+        for (Ponuda ponuda : ponudas) {
+            if (ponuda.getCena() <= maxFilter) {
                 ponudaList.add(ponuda);
-            }else if (maxFilter < 100){
+            } else if (maxFilter < 100) {
                 throw new PriceToLowException("Ne postoji ponuda ispod navede cene!");
             }
         }
