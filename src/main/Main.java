@@ -3,12 +3,13 @@ package main;
 import classes.*;
 import enums.VrstaPonude;
 import enums.VrstaPrevoza;
+import util.NameValidation;
 
 import java.time.LocalDate;
 import java.util.*;
 
 import static classes.Agencija.findAgencyByName;
-import static classes.Korsnik.findUser;
+import static classes.Korisnik.findUser;
 
 public class Main {
 
@@ -17,7 +18,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        List<Korsnik> korisnici = new ArrayList<>();
+        List<Korisnik> korisnici = new ArrayList<>();
+        List<Korisnik> noviKorisnici = new ArrayList<>();
         List<Ponuda> ponude = new ArrayList<>();
         List<Ponuda> izabranePonude = new ArrayList<>();
         List<Agencija> agencije = new ArrayList<>();
@@ -62,8 +64,38 @@ public class Main {
             }
         });
 
+        System.out.println("Da li imate nalog ili ne?");
+        String login = sc.next().toLowerCase(Locale.ROOT);
+
+        //Dodavanje novog korisnika
+        if (login.equals("da")){
+            System.out.println();
+        }else if (login.equals("ne")){
+            Korisnik noviKorisnik = new Korisnik();
+
+            System.out.print("Unesite Vase ime: ");
+            noviKorisnik.setIme(sc.next());
+            NameValidation.isWord(noviKorisnik.getIme());
+
+            System.out.print("Unesite Vase prezime: ");
+            noviKorisnik.setPrezime(sc.next());
+            NameValidation.isWord(noviKorisnik.getPrezime());
+
+            System.out.print("Unesite korisnicko ime: ");
+            noviKorisnik.setUsername(sc.next());
+
+            System.out.println("Unesite lozinku");
+            noviKorisnik.setPassword(sc.next());
+            noviKorisnici.add(noviKorisnik);
+
+            korisniciFiler.write(noviKorisnici);
+
+            System.out.println("Uspesno ste napravili nalog!");
+            System.out.println();
+        }
+
         korisniciFiler.read((params) -> {
-            Korsnik korsnik1 = new Korsnik(params[0], params[1], params[2], params[3]);
+            Korisnik korsnik1 = new Korisnik(params[0], params[1], params[2], params[3]);
             korisnici.add(korsnik1);
         });
 
@@ -77,7 +109,7 @@ public class Main {
         String password = sc.next();
 
         //Korisnik se pretrazuje po username-u i password-u u file-u korisnici.csv
-        Korsnik korsnik = findUser(korisnici, username, password);
+        Korisnik korisnik = findUser(korisnici, username, password);
 
         System.out.println("----------");
         System.out.println("DOBRODOSLI");
@@ -101,10 +133,7 @@ public class Main {
         System.out.println();
 
         //Korisniku se izlistavaju sve ponude koje odgovaraju njegovoj unetoj ceni
-        System.out.print("Unesite redni broj ponude koju zelite: ");
-        int izbor = sc.nextInt();
-        Ponuda izabranaPonuda = filtriranePonude.get(izbor - 1);
-
+        System.out.print("Unesite redni broj ponude koju zelite: "); int izbor = sc.nextInt(); Ponuda izabranaPonuda = filtriranePonude.get(izbor - 1);
         //Korisniku se pojavljuje ponuda koju je izabrao i izracunava mu se cena na osnovu vrste ponude
         System.out.println("Ponuda koju ste izabrali: " + "\n" + izabranaPonuda.toString());
         System.out.println();

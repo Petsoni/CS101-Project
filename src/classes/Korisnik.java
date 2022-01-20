@@ -5,15 +5,15 @@ import interfaces.CsvRow;
 
 import java.util.List;
 
-public class Korsnik extends Osoba implements CsvRow {
+public class Korisnik extends Osoba implements CsvRow {
 
     private String username;
     private String password;
 
-    public Korsnik() {
+    public Korisnik() {
     }
 
-    public Korsnik(String ime, String prezime, String username, String password) {
+    public Korisnik(String ime, String prezime, String username, String password) {
         super(ime, prezime);
         this.username = username;
         this.password = password;
@@ -36,10 +36,10 @@ public class Korsnik extends Osoba implements CsvRow {
     }
 
 
-    public static Korsnik findUser(List<Korsnik> korsniks, String username, String password) {
-        for (Korsnik korsnik : korsniks) {
-            if (korsnik.getUsername().equals(username) && korsnik.getPassword().equals(password)) {
-                return korsnik;
+    public static Korisnik findUser(List<Korisnik> korsniks, String username, String password) {
+        for (Korisnik korisnik : korsniks) {
+            if (korisnik.getUsername().equals(username) && korisnik.getPassword().equals(password)) {
+                return korisnik;
             }
         }
         throw new InvalidUsernameException("Korisnik ne postoji: " + username);
